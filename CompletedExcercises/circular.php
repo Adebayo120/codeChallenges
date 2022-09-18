@@ -4,15 +4,15 @@
 // Given a linked list, return true if the list
 // is circular, false if it is not.
 // --- Examples
-//   const l = new List();
-//   const a = new Node('a');
-//   const b = new Node('b');
-//   const c = new Node('c');
-//   l.head = a;
-//   a.next = b;
-//   b.next = c;
-//   c.next = b;
-//   circular(l) // true
+//   $l = new List();
+//   $a = new Node('a');
+//   $b = new Node('b');
+//   $c = new Node('c');
+//   $l.head = $a;
+//   $a.next = $b;
+//   $b.next = $c;
+//   $c.next = $b;
+//   circular($l) // true
 
 require_once 'linkedList.php';
 

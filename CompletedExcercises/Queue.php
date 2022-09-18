@@ -13,7 +13,7 @@ class Queue {
      *
      * @var array
      */
-    public $data = [];
+    private $data = [];
 
     public function __construct()
     {
@@ -34,9 +34,9 @@ class Queue {
     /**
      * remove
      *
-     * @return void
+     * @return mixed
      */
-    public function remove ()
+    public function remove (): mixed
     {
         return array_pop( $this->data );
     }
@@ -49,5 +49,10 @@ class Queue {
     public function peek ()
     {
         return count( $this->data ) ? $this->data[ count( $this->data ) - 1 ] : null;
+    }
+
+    public function empty (): bool
+    {
+        return !count( $this->data );
     }
 }

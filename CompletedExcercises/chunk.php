@@ -1,5 +1,7 @@
 <?php
 
+use MercuryHolidays\Search\constants\RoomProperty;
+
 // --- Directions
 // Given an array and chunk size, divide the array into many subarrays
 // where each subarray is of length size
@@ -93,4 +95,4 @@ function chunk ( array $array, int $size )
 //     return $chunk;
 // }
 
-print_r( chunk( [ 1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11 ], 5 ) );
+// print_r( chunk( [ 1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11 ], 5 ) );

@@ -1,35 +1,41 @@
 <?php
 
-require_once 'Stack.php';
+use Node as GlobalNode;
+use PhpParser\Node as PhpParserNode;
 
 class Node
 {
-
     /**
-     * $data
+     * data
      *
      * @var [type]
      */
     public $data;
 
     /**
-     * $next
+     * prev
+     *
+     * @var [type]
+     */
+    public $prev;
+
+    /**
+     * next
      *
      * @var [type]
      */
     public $next;
 
-    public function __construct($data, $next = null)
+    public function __construct($data, $prev = null, $next = null)
     {
         $this->data = $data;
-
+        $this->prev = $prev;
         $this->next = $next;
     }
 }
 
-class LinkedList
+class DoublyLinkedList
 {
-
     public ?Node $head;
 
     public function __construct()
@@ -38,14 +44,25 @@ class LinkedList
     }
 
     /**
-     * insertFirst
+     * insertAtHead
      *
      * @param [type] $data
      * @return void
      */
-    public function insertFirst($data)
+    public function insertAtHead($data): void
     {
-        $this->head = new Node($data, $this->head);
+        $node = new Node($data);
+
+        if (!$head = $this->head) {
+            $this->head = $node;
+            return;
+        }
+
+        $head->prev = $node;
+
+        $node->next = $head;
+
+        $this->head = $node;
     }
 
     /**
@@ -114,35 +131,14 @@ class LinkedList
         if (!$this->head) {
             return;
         }
-        $this->head = $this->head->next;
-    }
+        $head = $this->head;
 
-    /**
-     * removeLast
-     *
-     * @return void
-     */
-    // public function removeLast ()
-    // {
-    //     $previous = null;
-    //     $node = $this->head;
-    //     while ( $node ) 
-    //     {
-    //         if ( !$node->next )
-    //         {
-    //             if ( $previous )
-    //             {
-    //                 $previous->next = null;
-    //             }
-    //             else
-    //             {
-    //                 $this->head = null;
-    //             }
-    //         }
-    //         $previous = $node;
-    //         $node = $node->next;
-    //     }
-    // }
+        $this->head = $this->head->next;
+
+        $this->head->prev = null;
+
+        unset($head);
+    }
 
     /**
      * removeLast
@@ -160,15 +156,13 @@ class LinkedList
             return;
         }
 
-        $previous = $this->head;
-
-        $node = $this->head->next;
-
-        while ($node) {
-            $previous = $node;
+        while ($node = $this->head->next) {
             $node = $node->next;
         }
-        $previous->next = null;
+
+        $node->prev->next = null;
+
+        unset($node);
     }
 
     /**
@@ -229,12 +223,15 @@ class LinkedList
             $this->removeFirst();
         }
 
-        $previous = $this->getAt($index - 1);
-
-        if (!$previous || !$previous->next) {
+        if (!$node = $this->getAt($index)) {
             return;
         }
-        $previous->next = $previous->next->next;
+
+        $node->prev->next = $node->next;
+
+        if ($next = $node->next) {
+            $next->prev = $node->prev;
+        }
     }
 
     /**
@@ -252,29 +249,17 @@ class LinkedList
         }
 
         if ($index == 0) {
-            $this->insertFirst($data);
+            $this->insertAtHead($data);
             return;
         }
 
         $previous = ($idealPreviousNode = $this->getAt($index - 1)) ? $idealPreviousNode : $this->getLast();
 
-        $previous->next = new Node($data, $previous->next);
-    }
+        $next = $previous->next;
 
-    public function insertAt2($data, int $index)
-    {
-        if (!$index) {
-            $this->insertFirst($data);
-            return;
-        }
+        $previous->next = $node = new Node($data, $previous, $previous->next);
 
-        $parentNode = $this->head;
-
-        for ($i = 0; $i < $index - 2; $i++) {
-            $parentNode = $parentNode->next;
-        }
-
-        $parentNode->next = new Node($data, $parentNode->next);
+        $next->prev = $node;
     }
 
     public function reverse()
@@ -289,6 +274,12 @@ class LinkedList
             $next = $node->next;
 
             $node->next = $previous;
+
+            $node->prev = null;
+
+            if($previous){
+                $previous->prev = $node;
+            }
 
             $previous = $node;
 
@@ -309,13 +300,25 @@ class LinkedList
 
         $node->next = $previous;
 
+        $node->prev = null;
+
+        if($previous){
+            $previous->prev = $node;
+        }
+
         $this->recursiveReverseA($next, $node);
     }
 
-    public function recursiveReverseB(Node $node,  $previous = null)
+    public function recursiveReverseB(Node $node)
     {
         if (!$node->next) {
-            $node->next = $previous;
+            $node->next = $node->prev;
+
+            if($previous = $node->prev){
+                $previous->prev = $node;
+            }
+
+            $node->prev = null;
 
             $this->head =  $node;
 
@@ -324,7 +327,11 @@ class LinkedList
 
         $this->recursiveReverseB($node->next, $node);
 
-        $node->next = $previous;
+        $node->next = $node->prev;
+
+        if($previous = $node->prev){
+            $previous->prev = $node;
+        }
     }
 
     public function recursiveReverseC(Node $node)
@@ -344,31 +351,19 @@ class LinkedList
         $node->next = null;
     }
 
-    public function reverseUsingStack()
-    {
-        if (!$node = $this->head) {
-            return;
-        }
+    // public function recursiveReverse ( Node $node,  $previous = null  )
+    // {
+    //     if ( !$node->next )
+    //     {
+    //         $node->next = $previous;
 
-        $stack = new Stack();
+    //         $this->head =  $node;
 
-        $node = $this->head;
+    //         return;
+    //     }
 
-        while ($node) {
-            $stack->push($node);
+    //     $this->recursiveReverse( $node->next, $node );
 
-            $node = $node->next;
-        }
-
-        $node = $stack->pop();
-
-        $this->head = $node;
-
-        while (!$stack->empty()) {
-            $node->next = $stack->pop();
-
-            $node = $node->next;
-        }
-        $node->next = null;
-    }
+    //     $node->next = $previous;
+    // }
 }

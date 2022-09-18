@@ -37,7 +37,7 @@ class TreeNode {
      * remove
      *
      * @param [type] $data
-     * @return array
+     * @return void
      */
     public function remove ( $data )
     {

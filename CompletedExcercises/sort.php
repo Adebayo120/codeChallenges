@@ -11,12 +11,16 @@
  */
 function bubbleSort ( array $arr )
 {
-    for ( $i = 0; $i < count( $arr ); $i++) 
+    // start at the beginning of list
+    for ( $i = 0; $i < count( $arr ); $i++ ) 
     { 
-        for ( $j = 0 ; $j < ( count( $arr ) - $i - 1 ); $j++ ) 
+        // make a pass along list
+        for ( $j = 0 ; $j < ( count( $arr ) - $i - 1 ) ; $j++ ) 
         { 
+            // compare adjacent element
             if ( $arr[ $j ] > $arr[ $j + 1 ] )
             {
+                // swap
                 $lesser = $arr[ $j ];
 
                 $arr[ $j ] = $arr[ $j + 1 ];
@@ -48,6 +52,8 @@ function selectionSort( array $arr )
             }
         }
 
+        
+
         if ( $i !== $indexOfMin )
         {
             $lesser = $arr[ $indexOfMin ];
@@ -59,4 +65,57 @@ function selectionSort( array $arr )
     }
 
     return $arr;
+}
+
+/**
+ * mergeSort
+ *
+ * @param array $arr
+ * @return array
+ */
+function mergeSort ( array $arr )
+{
+    $arrCount = count( $arr );
+    if ( $arrCount === 1 )
+    {
+        return $arr;
+    }
+
+    $center = floor( $arrCount / 2 );
+
+    $left = array_slice( $arr, 0, $center );
+
+    $right = array_slice( $arr, $center );
+
+    return merge( mergeSort( $left ), mergeSort( $right ) );
+}
+
+/**
+ * merge
+ *
+ * @param array $left
+ * @param array $right
+ * @return array
+ */
+function merge ( array $left, array $right )
+{
+    $result = [];
+
+    while ( count( $left ) && count( $right ) )
+    {
+        if ( $left[ 0 ] < $right[ 0 ] )
+        {
+            $result[] = array_shift( $left );
+        }
+        else
+        {
+            $result[] = array_shift( $right );
+        }
+    }
+
+    return [ 
+        ...$result,
+        ...$left,
+        ...$right
+    ];
 }

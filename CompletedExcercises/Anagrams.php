@@ -39,4 +39,44 @@ function cleanUp ( $string )
     return implode( '', $stringInArrayForm );
 }
 
+// Range search using itarative binary search
+// function searchRange( array $arr, float $min, float $max ) : array
+// {
+//     $upperLowerBounds = [];
+//     $startIndex = 0;
+//     $endIndex = count( $arr ) - 1;
+
+//     while ( $startIndex < $endIndex ) {
+//         $midIndex = floor( ( $startIndex + $endIndex ) / 2 );
+//         if ( $min <= $arr[$midIndex][ 0 ] ) 
+//         {
+//             $endIndex = $midIndex;
+//         }
+//         else 
+//         {
+//             $startIndex = $midIndex + 1;
+//         }
+//     }
+
+//    // saving $startIndex in the result array that will be  returned...
+//     $upperLowerBounds[0] = $startIndex;
+//     $endIndex = count( $arr ) - 1;
+//     while ($startIndex < $endIndex) {
+//         $midIndex = floor( ($startIndex + $endIndex) / 2 + 1 );
+//         if ($max < $arr[$midIndex][ 0 ]) 
+//         {
+//             $endIndex = $midIndex  -1;
+//         }
+//         else 
+//         {
+//             $startIndex = $midIndex;
+//         }
+//     }
+//     $upperLowerBounds[1] = $endIndex;
+
+//     return array_slice( $arr, $upperLowerBounds[0], ($upperLowerBounds[1] - $upperLowerBounds[0]) + 1 );
+// }
+// print_r( searchRange( [ [ 0.1 ], [ 0.2 ], [ 0.3 ], [ 0.4 ], [ 0.5 ], [ 0.6 ] ], 0.1, 0.3 ) );
+
 echo anagrams( 'adam you abi', 'you abi adam' );
+
