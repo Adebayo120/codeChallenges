@@ -137,7 +137,6 @@ class ArrayStack2
 
 class Node
 {
-
     /**
      * $data
      *

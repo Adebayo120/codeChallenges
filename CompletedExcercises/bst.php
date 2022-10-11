@@ -18,8 +18,8 @@ use Node as GlobalNode;
 
 require_once 'Queue.php';
 
-class Node {
-
+class Node
+{
     /**
      * $data
      *
@@ -41,7 +41,7 @@ class Node {
      */
     public $right;
 
-    public function __construct( $data )
+    public function __construct($data)
     {
         $this->data = $data;
         $this->left = null;
@@ -54,23 +54,16 @@ class Node {
      * @param mixed $data
      * @return void
      */
-    public function insert ( $data )
+    public function insert($data)
     {
-        if ( $data <= $this->data && $this->left )
-        {
-            $this->left->insert( $data );
-        }
-        elseif ( $data <= $this->data && !$this->left )
-        {
-            $this->left = new Node( $data );
-        }
-        elseif ( $data > $this->data && $this->right )
-        {
-            $this->right->insert( $data );
-        }
-        elseif ( $data > $this->data && !$this->right )
-        {
-            $this->right = new Node( $data );
+        if ($data <= $this->data && $this->left) {
+            $this->left->insert($data);
+        } elseif ($data <= $this->data && !$this->left) {
+            $this->left = new Node($data);
+        } elseif ($data > $this->data && $this->right) {
+            $this->right->insert($data);
+        } elseif ($data > $this->data && !$this->right) {
+            $this->right = new Node($data);
         }
     }
 
@@ -80,175 +73,150 @@ class Node {
      * @param [type] $data
      * @return Node|null
      */
-    public function contains ( $data )
+    public function contains($data)
     {
-        if ( $data === $this->data )
-        {
+        if ($data === $this->data) {
             return $this;
-        }
-        elseif ( $data < $this->data && $this->left )
-        {
-            return $this->left->contains( $data );
-        }
-        elseif ( $data > $this->data && $this->right ) 
-        {
-            return $this->right->contains( $data );
+        } elseif ($data < $this->data && $this->left) {
+            return $this->left->contains($data);
+        } elseif ($data > $this->data && $this->right) {
+            return $this->right->contains($data);
         }
 
         return null;
     }
 }
 
-function findMax ( Node $root )
+function findMax(Node $root)
 {
-    if ( !$root->data )
-    {
-        trigger_error( 'Node is empty' );
+    if (!$root->data) {
+        trigger_error('Node is empty');
         return null;
     }
 
-    while ( $root->right ) {
+    while ($root->right) {
         $root = $root->right;
     }
     return $root;
 }
 
-function findMaxRecursively( Node $node )
+function findMaxRecursively(Node $node)
 {
-    if ( !$node->data )
-    {
-        trigger_error( 'Please fill up node' );
+    if (!$node->data) {
+        trigger_error('Please fill up node');
         return;
     }
 
-    if ( !$node->right )
-    {
+    if (!$node->right) {
         return $node;
     }
 
-    findMaxRecursively( $node->right );
+    findMaxRecursively($node->right);
 }
 
-function findMin( Node $root )
+function findMin(Node $root)
 {
-    if ( !$root->data )
-    {
-        trigger_error( 'Node is empty' );
+    if (!$root->data) {
+        trigger_error('Node is empty');
 
         return null;
     }
 
-    while ( $root->left ) {
+    while ($root->left) {
         $root = $root->left;
     }
 
     return $root;
 }
 
-function findMinRecursively( Node $node )
+function findMinRecursively(Node $node)
 {
-    if ( !$node->data )
-    {
-        trigger_error( 'Please fill up node' );
+    if (!$node->data) {
+        trigger_error('Please fill up node');
         return;
     }
 
-    if ( !$node->left )
-    {
+    if (!$node->left) {
         return $node;
     }
 
-    findMinRecursively( $node->left );
+    findMinRecursively($node->left);
 }
 
-function findHeight( ?Node $root )
+function findHeight(?Node $root)
 {
-    if ( !$root )
-    {
+    if (!$root) {
         return -1;
     }
-     [5]
-    [4, 6]
-    [3]
-    $max = max( findHeight( $root->left ), findHeight( $root->right ) );
-    
+
+    $max = max(findHeight($root->left), findHeight($root->right));
+
     return  $max + 1;
 }
-
-
-findHeight(5) = max(findHeight(4), findHeight(6)) + 1 = 3;
-findHeight(4) = max(findHeight(3), -1) + 1 = 2;
-findHeight(3) = max(-1, -1) + 1 = 1;
-findHeight(6) = max(-1, -1) + 1 = 1;
-
 
 // findHeight(5) = max(2, 1) + 1 = 3;
 // findHeight(4) = max(1, -1) + 1 = 2;
 // findHeight(3) = max(-1, -1) + 1 = 1;
 // findHeight(6) = max(-1, -1) + 1 = 1;
 
-function levelOrder ( Node $root )
+function levelOrder(Node $root)
 {
-    if ( !$root )
-    {
+    if (!$root) {
         return;
     }
 
     $discoveredNodes = new Queue();
-    
-    $discoveredNodes->add( $root );
 
-    while ( !$discoveredNodes->empty() ) 
-    {
+    $discoveredNodes->add($root);
+
+    while (!$discoveredNodes->empty()) {
         $current = $discoveredNodes->remove();
-        if ( $left = $current->left )
-        {
-            $discoveredNodes->add( $left );
+        if ($left = $current->left) {
+            $discoveredNodes->add($left);
         }
-        if ( $right = $current->right )
-        {
-            $discoveredNodes->add( $right );
+        if ($right = $current->right) {
+            $discoveredNodes->add($right);
         }
     }
 }
 
-function preOrder ( ?Node $root )
+function preOrder(?Node $root)
 {
     echo $root->data;
-    preOrder( $root->left );
-    preOrder( $root->right );
+    preOrder($root->left);
+    preOrder($root->right);
 }
 
-function inOrder ( ?Node $root )
+function inOrder(?Node $root)
 {
-    inOrder( $root->left );
+    inOrder($root->left);
     echo $root->data;
-    inOrder( $root->right );
+    inOrder($root->right);
 }
 
-function postOrder ( ?Node $root )
+function postOrder(?Node $root)
 {
-    postOrder( $root->left );
-    postOrder( $root->right );
+    postOrder($root->left);
+    postOrder($root->right);
     echo $root->data;
 }
 
-function isBST ( $root )
+function isBST($root)
 {
-    isBSTUtil( $root, log( 0 ), log( -0 ) );
+    isBSTUtil($root, log(0), log(-0));
 }
 
-function isBSTUtil ( ?Node $root, $minValue, $maxValue )
+function isBSTUtil(?Node $root, $minValue, $maxValue)
 {
-    if ( !$root )
-    {
+    if (!$root) {
         return true;
     }
 
-    if (  $root->data > $minValue 
-            && $root->data < $maxValue
-            && isBSTUtil( $root->left, $minValue, $root->data )
-            && isBSTUtil( $root->right, $root->data, $maxValue )
+    if (
+        $root->data > $minValue
+        && $root->data < $maxValue
+        && isBSTUtil($root->left, $minValue, $root->data)
+        && isBSTUtil($root->right, $root->data, $maxValue)
     ) {
         return true;
     } else {
@@ -256,51 +224,38 @@ function isBSTUtil ( ?Node $root, $minValue, $maxValue )
     }
 }
 
-function delete ( ?Node $root, $data )
+function delete(?Node $root, $data)
 {
-    if ( !$root )
-    {
+    if (!$root) {
         return $root;
-    } 
+    }
 
-    if ( $data < $root->data )
-    {
-        $root->left = delete( $root->left, $data );
-    }
-    elseif ( $data > $root->data )
-    {
-        $root->right = delete( $root->right, $data );
-    }
-    else
-    {
-        if ( !$root->right && !$root->left )
-        {
+    if ($data < $root->data) {
+        $root->left = delete($root->left, $data);
+    } elseif ($data > $root->data) {
+        $root->right = delete($root->right, $data);
+    } else {
+        if (!$root->right && !$root->left) {
             $root = null;
-        }
-        elseif ( !$root->left ) 
-        {
+        } elseif (!$root->left) {
             $root = $root->right;
-        }
-        elseif ( !$root->right ) 
-        {
+        } elseif (!$root->right) {
             $root = $root->left;
-        }
-        else
-        {
-            $min = findMin( $root->right );
+        } else {
+            $min = findMin($root->right);
             $root = $min;
-            $root->right = delete( $root->right, $min->data );
+            $root->right = delete($root->right, $min->data);
         }
     }
 
     return $root;
 }
 
-$node = new Node( 7 );
-$node->insert( 4 );
-$node->insert( 9 );
-$node->insert( 1 );
-$node->insert( 6 );
-$node->insert( 5 );
-$node->insert( 7 );
-echo findHeight( $node );
+$node = new Node(7);
+$node->insert(4);
+$node->insert(9);
+$node->insert(1);
+$node->insert(6);
+$node->insert(5);
+$node->insert(7);
+echo findHeight($node);

@@ -96,11 +96,11 @@ class Tree {
 
         while ( count( $arr )  ) 
         {
-            $node = array_shift( $arr );
+            $node = array_pop( $arr );
 
             foreach ( array_reverse( $node->children )  as $index => $child ) 
             {
-                array_unshift( $arr, $child );
+                array_push( $arr, $child );
             }
 
             $fn( $node );

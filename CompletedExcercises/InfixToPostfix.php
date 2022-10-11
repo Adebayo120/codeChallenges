@@ -14,14 +14,14 @@ function InfixToPostfix(string $infixExpression): string
 
     foreach ($arrayOfInfixExpressionChars as $index => $char) {
         if (isOperator($char)) {
-            while (!$stack->empty() && !isOpeningParenthese($stack->peek()) && hasHigherPrecedence($stack->peek(), $char)) {
+            while (!$stack->empty() && !isOpeningParentheses($stack->peek()) && hasHigherPrecedence($stack->peek(), $char)) {
                 $postfixExpression .= $stack->pop();
             }
             $stack->push($char);
-        } elseif (isOpeningParenthese($char)) {
+        } elseif (isOpeningParentheses($char)) {
             $stack->push($char);
         } elseif (isClosingParenthese($char)) {
-            while (!$stack->empty() && !isOpeningParenthese($stack->peek())) {
+            while (!$stack->empty() && !isOpeningParentheses($stack->peek())) {
                 $postfixExpression .= $stack->pop();
             }
             $stack->pop();
@@ -37,7 +37,7 @@ function InfixToPostfix(string $infixExpression): string
     return $postfixExpression;
 }
 
-function isOpeningParenthese(string $char): bool
+function isOpeningParentheses(string $char): bool
 {
     switch ($char) {
         case '(':

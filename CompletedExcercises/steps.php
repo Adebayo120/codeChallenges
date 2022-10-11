@@ -19,14 +19,14 @@
 //       '### '
 //       '####'
 
-// function steps (int $n)
+// function steps (int $heightOfSteps)
 // {
-//     for ( $row = 1; $row <= $n; $row++ ) 
+//     for ( $level = 1; $level <= $heightOfSteps; $level++ ) 
 //     { 
 //         $step = '';
-//         for ( $column = 1; $column <= $n; $column++ ) 
+//         for ( $column = 1; $column <= $heightOfSteps; $column++ ) 
 //         { 
-//             if ( $column <= $row )
+//             if ( $column <= $level )
 //             {
 //                 $step .= '#';
 //             }
@@ -39,20 +39,20 @@
 //     }
 // }
 
-function steps (int $n, $row = 0, $step = '' )
+function steps(int $heightOfSteps, $level = 0, $step = '' )
 {
-    if ( $n == $row )
+    if ( $heightOfSteps == $level )
     {
         return;
     }
 
-    if ( strlen( $step ) == $n )
+    if ( strlen( $step ) == $heightOfSteps )
     {
         echo $step;
-        return steps( $n, $row + 1 );
+        return steps( $heightOfSteps, $level + 1 );
     }
 
-    if ( strlen( $step ) <= $row )
+    if ( strlen( $step ) <= $level )
     {
         $step .= '#';
     }
@@ -61,7 +61,7 @@ function steps (int $n, $row = 0, $step = '' )
         $step .= '.';
     }
 
-    steps( $n, $row, $step );
+    steps( $heightOfSteps, $level, $step );
 }
 
-steps (3);
+steps(3);

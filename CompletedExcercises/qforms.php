@@ -21,8 +21,9 @@ class QForm {
 
     public function __construct()
     {
-        $this->first = new Stack();
-        $this->second = new Stack();
+        $this->first = new ArrayStack2();
+        
+        $this->second = new ArrayStack2();
     }
 
     /**

@@ -17,7 +17,7 @@ function CheckForBalanceParantheses( string $string ): bool
 
     foreach ( $stringInArray as $index => $char ) 
     {
-        switch ( $char ) 
+        switch ( $char )
         {
             case '(':
             case '{':
@@ -27,7 +27,7 @@ function CheckForBalanceParantheses( string $string ): bool
             case ')':
             case '}':
             case ']':
-                    if ( $stackOfOpeningParenthese->empty() || $stackOfOpeningParenthese->peek() != $char )
+                    if ( $stackOfOpeningParenthese->empty() || $stackOfOpeningParenthese->peek() != getPair($char) )
                     {
                         return false;
                     }
@@ -42,6 +42,20 @@ function CheckForBalanceParantheses( string $string ): bool
     }
 
     return $stackOfOpeningParenthese->empty();
+}
+
+function arrayOfPairs(): array
+{
+    return [
+        ')' => '(',
+        '}' => '{',
+        ']' => '[',
+    ];
+}
+
+function getPair(string $char): string
+{
+    return arrayOfPairs()[$char];
 }
 
 echo CheckForBalanceParantheses( '{adam(jamiu)}' );

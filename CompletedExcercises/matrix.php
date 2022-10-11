@@ -29,7 +29,7 @@ function matrix ( $n )
 
     for ( $i = 0 ; $i < $n ; $i++) { 
         $matrixArray[] = [];
-    } 
+    }
 
     $counter = 1;
 

@@ -19,30 +19,30 @@
 /**
  * pyramid
  *
- * @param integer $n
+ * @param integer $heightOfPyramid
  * @return void
  */
-// function pyramid ( int $n )
+// function pyramid ( int $heightOfPyramid )
 // {
-//     $maxColumn = $n * 2 - 1;
+//     $maxColumn = $heightOfPyramid * 2 - 1;
 
 //     $midpoint = round( $maxColumn / 2 );
 
-//     for ( $row = 0; $row < $n ; $row++ ) 
+//     for ( $level = 0; $level < $heightOfPyramid ; $level++ ) 
 //     { 
-//         $level = '';
+//         $result = '';
 //         for ( $column = 1; $column <= $maxColumn; $column++ ) 
 //         { 
-//             if ( $midpoint + $row >= $column &&  $midpoint - $row <= $column )
+//             if ( $midpoint + $level >= $column &&  $midpoint - $level <= $column )
 //             {
-//                 $level .= '#';
+//                 $result .= '#';
 //             }
 //             else
 //             {
-//                 $level .= '-';
+//                 $result .= '-';
 //             }
 //         }
-//         echo $level;
+//         echo $result;
 //         echo "<br>";
 //     }
 // }
@@ -50,39 +50,52 @@
 /**
  * pyramid
  *
- * @param integer $n
+ * @param integer $heightOfPyramid
  * @return void
  */
-function pyramid ( $n, $row = 0, $level = '' )
+function pyramid ( $heightOfPyramid, $level = 0, $result = '' )
 {
-    if ( $row == $n )
+    if ( $level == $heightOfPyramid )
     {
         return;
     }
     
-    $columnsCount = strlen( $level ) + 1; 
+    $columnsCount = strlen( $result ) + 1; 
 
-    $maxColumns = $n * 2 - 1;
+    $maxColumns = $heightOfPyramid * 2 - 1;
 
     $midpoint = round( $maxColumns / 2 );
 
-    if ( strlen( $level ) == $maxColumns )
+    if ( strlen( $result ) == $maxColumns )
     {
-        echo $level;
+        echo $result;
         echo "<br>";
-        return pyramid( $n, $row + 1 );
+        return pyramid( $heightOfPyramid, $level + 1 );
     }
-
-    if ( $midpoint + $row >= $columnsCount && $midpoint - $row <= $columnsCount )
+    // if ($level >= 1) {
+    //     echo "level {$level} ";
+    //     echo "columnsCount {$columnsCount} ";
+    //     $max = $midpoint + $level;
+    //     echo "max {$max} ";
+    //     $min = $midpoint - $level;
+    //     echo "min {$min} ";
+    // }
+    if ( $midpoint + $level >= $columnsCount && $midpoint - $level <= $columnsCount )
     {
-        $level .= '#';
+
+        $result .= '#';
     }
     else
     {
-        $level .= '-';
+        $result .= '-';
     }
+    
+    // if ($level >= 1) {
+    //     echo $result;
+    //     echo "<br>";
+    // }
 
-    pyramid( $n, $row, $level );
+    pyramid( $heightOfPyramid, $level, $result );
 }
 
-pyramid( 3 );
+pyramid( 5 );

@@ -28,7 +28,7 @@ function circular ( LinkedList $list )
 
     $fast = $list->getFirst();
 
-    while ( $fast->next && $fast->next->next ) 
+    while ( $fast && $fast->next ) 
     {
         $slow = $slow->next;
 
