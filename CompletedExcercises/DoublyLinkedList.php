@@ -1,8 +1,5 @@
 <?php
 
-use Node as GlobalNode;
-use PhpParser\Node as PhpParserNode;
-
 class Node
 {
     /**
