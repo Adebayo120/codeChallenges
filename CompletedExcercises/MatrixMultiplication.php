@@ -29,14 +29,14 @@
  * @param integer $n // total number of elements in each matrix, it should be a multiple of 2
  * @return void
  */
-function iterativeImplementationOfMM(array $a, array $b, int $n)
+function iterativeImplementationOfMM(array $a, array $b, int $n): array
 {
   $result = [];
   for ($i=0; $i < $n; $i++) { 
     for ($j=0; $j < $n; $j++) { 
       $result[$i][$j] = 0;
-      for ($k=0; $k < $n; $k++) { 
-        $result[$i][$j] = $a[$i][$k] * $b[$k][$j];
+      for ($k=0; $k < $n; $k++) {
+        $result[$i][$j] += $a[$i][$k] * $b[$k][$j];
       }
     }
   }
@@ -47,12 +47,13 @@ print_r(iterativeImplementationOfMM(
   [[1,2], [12, 13]], [[15, 16], [8,7]], 2
 ));
 
-[
-  [6,14],
-  [104, 91],
-];
-
 // function recursiveImplementationOfMatrixMultiplication(array $a, array $b, int $n)
 // {
-//   if ()
+//   if ($n <= 2) {
+
+//   } else {
+//     $mid = $n / 2;
+
+//     recursiveImplementationOfMatrixMultiplication(array_slice($a, 0, 2), )
+//   }
 // }

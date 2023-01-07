@@ -14,6 +14,20 @@
 // and return the Node in the tree with the same value.
 // If the value isn't in the tree return null.
 
+// NOTE
+// Nodes at same depth can also be defined as nodes at same level
+// Maximum depth of a tree is equivalent to the height of the tree
+// Maximum number of nodes at a level = pow(2, $level) where $level is the current level
+// Maximum number of nodes in a binary tree with height $h = pow(2, $h + 1) - 1;
+// The height of a perfect binary tree with $n nodes = log($n + 1, 2) - 1;
+// The height of a complete binary tree with $n nodes = floor(log($n, 2));
+// Minimum height of a binary tree with $n nodes = log($n, 2)
+// Maximum height of a binary tree with $n nodes = $n - 1
+// Height of an empty tree is -1
+// Height of tree with 1 node is 0
+// You can get the index of an element left child with index $i using 2 * $i + 1 in a complete binary tree
+// You can get the index of an element right child with index $i using 2 * $i + 2 in a complete binary tree
+
 use Node as GlobalNode;
 
 require_once 'Queue.php';
