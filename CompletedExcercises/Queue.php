@@ -48,7 +48,7 @@ class Queue {
      */
     public function peek ()
     {
-        return count( $this->data ) ? $this->data[ count( $this->data ) - 1 ] : null;
+        return !$this->empty() ? $this->data[ count( $this->data ) - 1 ] : null;
     }
 
     public function empty (): bool

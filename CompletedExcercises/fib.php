@@ -16,17 +16,17 @@
  * @param integer $n
  * @return integer
  */
-function fib ( int $n )
-{
-    $result = [ 0, 1 ];
+// function fib ( int $n )
+// {
+//     $result = [ 0, 1 ];
 
-    for ( $i = 2; $i <= $n ; $i++ ) 
-    { 
-        $result[] = ( $result[ $i - 1 ] ) + ( $result[ $i - 2 ] );
-    }
+//     for ( $i = 2; $i <= $n ; $i++ ) 
+//     { 
+//         $result[] = ( $result[ $i - 1 ] ) + ( $result[ $i - 2 ] );
+//     }
 
-    return $result[ $n ];
-}
+//     return $result[ $n ];
+// }
 
 /**
  * fib
@@ -51,23 +51,23 @@ function fib ( int $n )
  * @param array $cached
  * @return integer
  */
-// function fib ( int $n, $cached = [] )
-// {
-//     if ( $n < 2 )
-//     {
-//         return $n;
-//     }
+function fib ( int $n, $cached = [] )
+{
+    if ( $n < 2 )
+    {
+        return $n;
+    }
 
-//     if ( isset( $cached[ $n ] ) )
-//     {
-//         return $cached[ $n ];
-//     }
+    if ( isset( $cached[ $n ] ) )
+    {
+        return $cached[ $n ];
+    }
 
-//     $result = fib( $n - 1, $cached ) + fib( $n - 2, $cached );
+    $result = fib( $n - 1, $cached ) + fib( $n - 2, $cached );
 
-//     $cached[ $n ] = $result;
+    $cached[ $n ] = $result;
 
-//     return $result;
-// }
+    return $result;
+}
 
-echo fib( 15 );
+echo fib( 4 );

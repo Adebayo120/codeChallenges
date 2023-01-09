@@ -31,8 +31,8 @@ function depthFirstTraversalRecursive(array $graph, string $source)
   }
 }
 
-// Breath first traversal can't bu run recursively, because recursive
-// actions uses stack under the hood meanwjile traversal can only use queue
+// Breath first traversal can't be run recursively, because recursive
+// actions uses stack under the hood meanwhile traversal can only use queue
 function breadthFirstTraversal(array $graph, string $source)
 {
   $queue = [$source];
