@@ -117,8 +117,8 @@ class Heap
   }
 }
 
-$heap = new Heap([50,30,20,15,10,8,16], 7);
+// $heap = new Heap([50,30,20,15,10,8,16], 7);
 
-$heap->delete();
+// $heap->delete();
 
-print_r($heap->getHeap());
+// print_r($heap->getHeap());

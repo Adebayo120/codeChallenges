@@ -18,3 +18,14 @@ function heapSort(array $arr)
 }
 
 heapSort([18,20,15,12,10,40,25]);
+// function dd($variable){
+//   echo '<pre>';
+//   die(var_dump($variable));
+//   echo '</pre>';
+// }
+
+// $prices = array( 'Tires'=>100, 'Oil'=>10, 'Spark Plugs'=>4 );
+
+// dd($prices);
+
+// echo "<br><br>I am here";
