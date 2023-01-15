@@ -32,11 +32,11 @@
 function iterativeImplementationOfMM(array $a, array $b, int $n): array
 {
   $result = [];
-  for ($i=0; $i < $n; $i++) { 
-    for ($j=0; $j < $n; $j++) { 
-      $result[$i][$j] = 0;
+  for ($firstMatrixRowIndex=0; $firstMatrixRowIndex < $n; $firstMatrixRowIndex++) { 
+    for ($secondMatrixColumnIndex=0; $secondMatrixColumnIndex < $n; $secondMatrixColumnIndex++) {
+      $result[$firstMatrixRowIndex][$secondMatrixColumnIndex] = 0;
       for ($k=0; $k < $n; $k++) {
-        $result[$i][$j] += $a[$i][$k] * $b[$k][$j];
+        $result[$firstMatrixRowIndex][$secondMatrixColumnIndex] += $a[$firstMatrixRowIndex][$k] * $b[$k][$secondMatrixColumnIndex];
       }
     }
   }

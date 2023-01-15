@@ -1,5 +1,7 @@
 <?php
 
+// Time complexity = 0(n^2)
+
 function dijkstraAlgorithm(array $matrix, int $startPoint)
 {
   $result = $matrix[$startPoint];
