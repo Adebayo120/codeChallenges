@@ -2,7 +2,7 @@
 
 // Time complexity = 0(n^2)
 
-function dijkstraAlgorithm(array $matrix, int $startPoint)
+function dijkstraAlgorithmShortestPathToOtherVertices(array $matrix, int $startPoint)
 {
   $result = $matrix[$startPoint];
   $arr = $matrix[$startPoint];
@@ -42,12 +42,12 @@ function getMinValueIndex(array $arr)
   return $index;
 }
 
-print_r(dijkstraAlgorithm([
-  [0,0,0,0,0,0,0],
-  [0,0,50,45,10,0,0],
-  [0,0,0,10,15,0,0],
-  [0,0,0,0,0,30,0],
-  [0,10,0,0,0,15,0],
-  [0,0,20,35,0,0,0],
-  [0,0,0,0,0,3,0]
-], 1));
+// print_r(dijkstraAlgorithmShortestPathToOtherVertices([
+//   [0,0,0,0,0,0,0],
+//   [0,0,50,45,10,0,0],
+//   [0,0,0,10,15,0,0],
+//   [0,0,0,0,0,30,0],
+//   [0,10,0,0,0,15,0],
+//   [0,0,20,35,0,0,0],
+//   [0,0,0,0,0,3,0]
+// ], 1));
