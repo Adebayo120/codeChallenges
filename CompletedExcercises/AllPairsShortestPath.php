@@ -33,7 +33,7 @@ function floydWarshallAlgorithm($matrix)
             }
             foreach ($row as $columnIndex => $columnValue) {
                 // Since we want to check if using middleIndex between vertex is shorter
-                // we don't want to read middle vertex colum, because it will be a direct path and 
+                // we don't want to read middle vertex column, because it will be a direct path and 
                 // not a path through middleVertex, and also we don't want to read where columnIndex
                 // is equal to rowIndex because its a self path, there will never be a path between
                 // vertex 2 to vertex 2
