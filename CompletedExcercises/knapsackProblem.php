@@ -49,4 +49,22 @@ function KPGreedyMethod(array $weight, array $profit, int $n)
   return $totalProfit;
 }
 
+function KPDynamicMethod(array $weight, array $profit, int $m)
+{
+  $k = [];
+  $n = count($profit);
+  for ($i=0; $i <= $n ; $i++) {
+    for ($w=0; $w <= $m ; $w++) { 
+      if ($i == 0 || $w == 0) {
+        $k[$i][$w] = 0;
+      } elseif ($weight[$i] <= $w) {
+        $k[$i][$w] = max($profit[$i] + $k[$i - 1][$w - $weight[$i]], $k[$i - 1][$w]);
+      } else {
+        $k[$i][$w] = $k[$i - 1][$w];
+      }
+    }
+  }
+  return $k[$n][$w];
+}
+
 echo(KPGreedyMethod([20, 10, 30], [100, 60, 120], 50));

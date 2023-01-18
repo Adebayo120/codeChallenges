@@ -6,7 +6,7 @@
 //
 // This algorithm uses the following formula to get each matrix multiplication cost
 // C[i][j] = C[i][k] + C[k+1][j] + d[i - 1] * d[k] * d[j];
-
+// Time Complexity 0(n^3)
 
 
 function matrixChainMultiplication(int $numberOfMatrixes, array $dimensions)
