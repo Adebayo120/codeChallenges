@@ -20,7 +20,7 @@
 // Decreasing p/w ratio[] = {10, 7, 6, 5}
 // Taking up the weight values 10, 40, (1 / 2) * 20 
 // Profit = 100 + 280 + (1 / 2) * 120 = 440
-
+// Note: Unlike 0/1 knapsack, you are allowed to break the item.
 function KPGreedyMethod(array $weight, array $profit, int $n)
 {
   $profitWeights = [];
@@ -49,12 +49,15 @@ function KPGreedyMethod(array $weight, array $profit, int $n)
   return $totalProfit;
 }
 
+// This is 0/1 knapsack problem, you are not allowed to break the item.
+// Dynamic Approach
+// formula is k[i][w] = max(profit[i] + k[i -1][w - wth[i]], k[i - 1][w])
 function KPDynamicMethod(array $weight, array $profit, int $m)
 {
   $k = [];
   $n = count($profit);
   for ($i=0; $i <= $n ; $i++) {
-    for ($w=0; $w <= $m ; $w++) { 
+    for ($w=0; $w <= $m ; $w++) {
       if ($i == 0 || $w == 0) {
         $k[$i][$w] = 0;
       } elseif ($weight[$i] <= $w) {
