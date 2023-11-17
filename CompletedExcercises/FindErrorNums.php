@@ -18,30 +18,62 @@
 // Output: [2,3]
 // Explanation: 2 is repeated twice and 3 is missing
 
-class Solution{
-  function findErrorNums(array $nums): array 
+class Solution
+{
+  // function findErrorNums(array $nums): array
+  // {
+  //   $duplicate = -1;
+  //   $missing = -1;
+  //   foreach ($nums as $key => $num) {
+  //     if ($nums[$num - 1] < 0) {
+  //       $duplicate = $num;
+  //     } else {
+  //       $nums[$num - 1] *= -1;
+  //     }
+  //   }
+
+  //   foreach ($nums as $key => $num) {
+  //     if ($num > 0) {
+  //       $missing = $key + 1;
+  //     }
+  //   }
+  //   return [$duplicate, $missing];
+  // }
+  // function findErrorNums(array $nums): array
+  // {
+  //   foreach ($nums as $key => $num) {
+  //     if ($num !== $key + 1) {
+  //       return [$num, $key + 1];
+  //     }
+  //   }
+  // }
+  // function findErrorNums(array $nums): array
+  // {
+  //   foreach ($nums as $key => $num) {
+  //     if ($num !== $key + 1) {
+  //       return [$num, $key + 1];
+  //     }
+  //   }
+  // }
+  function findErrorNums(array $nums): array
   {
-    $duplicate = -1;
-    $missing = -1;
-    foreach ($nums as $key => $num) {
-      if ($nums[$num - 1] < 0) {
-        $duplicate = $num;
-      } else {
-        $nums[$num - 1] *= -1;
-      }
+    if(!count($nums)) {
+      return [];
     }
 
+    $startPoint = $nums[0];
+
     foreach ($nums as $key => $num) {
-      if ($num > 0) {
-        $missing = $key + 1;
+      $validNum = $startPoint + $key;
+      if ($num !== $validNum) {
+        return [$num, $validNum];
       }
     }
-    return [$duplicate, $missing];
   }
 }
 
 $solution = new Solution();
 
-$output = $solution->findErrorNums([1,2,3,2]);
+$output = $solution->findErrorNums([1, 2, 3, 2]);
 
-echo '['. implode(',', $output). ']';
+echo '[' . implode(',', $output) . ']';

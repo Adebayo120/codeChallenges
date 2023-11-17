@@ -1,205 +1,198 @@
 <?php
 
-// class Graph
-// {
-//     public $v;
+class Graph
+{
+    private array $adjacentVertices = [];
 
-//     public $adj;
+    public int $nil = -1;
 
-//     public $nil;
+    public int $discoveryTime = 0;
 
-//     public $time;
+    public array $visited = [];
 
-//     public function __construct(int $v)
-//     {
-//         $this->v = $v;
-//         $this->adj = [];
-//         $this->nil = -1;
-//         $this->time = 0;
-//         for ($i=0; $i < $v; ++$i) { 
-//             $this->adj[$i] = []; 
-//         }
-//     }
+    public array $arrayOfEachVertexDiscoveryTime = [];
 
-//     public function addEdge($v, $w)
-//     {
-//         $this->adj[$v][] = $w;
-//         $this->adj[$w][] = $v;
-//     }
+    public array $lowestReachableDiscoveryTime = [];
 
-//     public function APUtil($u, $visited, $disc, $low, $parent, $ap)
-//     {
-//         $children = 0;
+    public array $parent = [];
+
+    public array $articulationPoints = [];
+
+    public function __construct(private int $v) {}
+
+    public function addEdge($v, $w)
+    {
+        $this->adjacentVertices[$v][] = $w;
+        $this->adjacentVertices[$w][] = $v;
+    }
+
+    public function APUtil($source)
+    {
+        $children = 0;
         
-//         $visited[$u] = true;
+        $this->visited[$source] = true;
 
-//         $disc[$u] = $low[$u] = ++$this->time;
+        $this->discoveryTime++;
 
-//         foreach ($this->adj[$u] as $key => $v) {
-//             if (!$visited[$v]) {
-//                 $children++;
-//                 $parent[$v] = $u;
-//                 $this->APUtil($v, $visited, $disc, $low, $parent, $ap);
+        $this->arrayOfEachVertexDiscoveryTime[$source] = $this->discoveryTime;
 
-//                 $low[$u] = min($low[$u], $low[$v]);
+        $this->lowestReachableDiscoveryTime[$source] = $this->discoveryTime;
 
-//                 if ($parent[$u] == $this->nil && $children > 1) {
-//                     $ap[$u] = true;
-//                 }
+        foreach ($this->adjacentVertices[$source] as $adjacentVertex) {
+            if (!$this->visited[$adjacentVertex]) {
+                $children++;
 
-//                 if ($parent[$u] != $this->nil && $low($v) >= $disc[$u]) {
-//                     $ap[$u] = true;
-//                 }
-//             } elseif ($v != $parent[$u]) {
-//                 $low[$u] = min($low[$u], $disc[$v]);
-//             }
-//         }
-//     }
+                $this->parent[$adjacentVertex] = $source;
 
-//     public function AP()
-//     {
-//         $visited = [];
-//         $disc = [];
-//         $low = [];
-//         $parent = [];
-//         $ap = [];
+                $this->APUtil($adjacentVertex);
 
-//         for ($i=0; $i < $this->v; $i++) { 
-//             $parent[$i] = $this->nil;
-//             $visited[$i] = false;
-//             $ap[$i] = false;
-//         }
+                $this->lowestReachableDiscoveryTime[$source] = min($this->lowestReachableDiscoveryTime[$source], $this->lowestReachableDiscoveryTime[$adjacentVertex]);
 
-//         for ($i=0; $i < $this->v; $i++) { 
-//             $parent[$i] = $this->nil;
-//             $visited[$i] = false;
-//             $ap[$i] = false;
-//         }
+                if ($this->parent[$source] == $this->nil && $children > 1) {
+                    $this->articulationPoints[$source] = true;
+                }
 
-//         for ($i=0; $i < $this->v; $i++) { 
-//             if ($visited[$i] == false) {
-//                 $this->APUtil($i, $visited, $disc, $low, $parent, $ap);
-//             }
-//         }
-
-//         for ($i=0; $i < $this->v; $i++) { 
-//             if ($visited[$i] == false) {
-//                 $this->APUtil($i, $visited, $disc, $low, $parent, $ap);
-//             }
-//         }
-//         return $ap;
-//     }
-// }
-
-// $g1 = new Graph(5);
-// $g1->addEdge(1, 0);
-// $g1->addEdge(0, 2);
-// $g1->addEdge(2, 1);
-// $g1->addEdge(0, 3);
-// $g1->addEdge(3, 4);
-// $g1->AP();
-
-
-function findArticulationPoint(
-    array $graph, 
-    int $u,
-    array $visited,
-    array $disc, 
-    array $low, 
-    array $parent,
-    array $ap,
-    int $time
-) {
-    list(
-        $visited,
-        $disc,
-        $low,
-        $parent,
-        $ap
-    ) = findArticulationPoint(
-        $graph, 
-        $u, 
-        $visited,
-        $disc,
-        $low,
-        $parent,
-        $ap,
-        $time
-    );
-
-    return $ap;
-}
-
-function findArticulationPointAction(
-    array $graph, 
-    int $u,
-    array $visited,
-    array $disc, 
-    array $low, 
-    array $parent,
-    array $ap,
-    int $time
-) {
-    
-    $visited[$u] = true;
-    
-    $disc[$u] = $low[$u] = ++$time;
-
-    $children = 0;
-    foreach ($graph[$u] as $key => $v) {
-        if (!isset($visited[$v])) {
-            $children++;
-            $parent[$v] = $u;
-            list(
-                $visited,
-                $disc,
-                $low,
-                $parent,
-                $ap
-            ) = findArticulationPoint(
-                $graph, 
-                $v, 
-                $visited,
-                $disc,
-                $low,
-                $parent,
-                $ap,
-                $time
-            );
-
-            $low[$u] = min( $low[$u], $low[$v] );
-
-            if (!isset($parent[$u]) && $children > 1) {
-                $ap[$u] = $u;
+                if ($this->parent[$source] != $this->nil && $this->lowestReachableDiscoveryTime[$adjacentVertex] >= $this->arrayOfEachVertexDiscoveryTime[$source]) {
+                    $this->articulationPoints[$source] = true;
+                }
+            } elseif ($adjacentVertex != $this->parent[$source]) {
+                $this->lowestReachableDiscoveryTime[$source] = min($this->lowestReachableDiscoveryTime[$source], $this->arrayOfEachVertexDiscoveryTime[$adjacentVertex]);
             }
-
-            if (isset($parent[$u]) && $low[$v] >= $disc[$u]) {
-                $ap[$u] = $u;
-            }
-        } elseif($v !== $parent[$u]) {
-            $low[$u] = min($low[$u], $disc[$v]);
         }
     }
 
-    return [
-        $visited,
-        $disc,
-        $low,
-        $parent,
-        $ap
-    ];
+    public function AP()
+    {
+        for ($i=0; $i < $this->v; $i++) {
+            $this->parent[$i] = $this->nil;
+            $this->visited[$i] = false;
+            $this->articulationPoints[$i] = false;
+        }
+
+
+        for ($i=0; $i < $this->v; $i++) { 
+            if ($this->visited[$i] == false) {
+                $this->APUtil($i);
+            }
+        }
+
+        for ($i=0; $i < $this->v; $i++) {
+            if ($this->articulationPoints[$i] == true) {
+                echo "{$i} ";
+            }
+        }
+    }
 }
 
-print_r(findArticulationPoint(
-    [
-        1 => [2, 4],
-        2 => [1, 3],
-        3 => [2, 4, 5, 6],
-        4 => [1, 3],
-        5 => [3, 6],
-        6 => [3, 5]
-    ], 1, [], [], [], [], [], 0
-));
+$g1 = new Graph(5);
+$g1->addEdge(1, 0);
+$g1->addEdge(0, 2);
+$g1->addEdge(2, 1);
+$g1->addEdge(0, 3);
+$g1->addEdge(3, 4);
+$g1->AP();
+
+
+// function findArticulationPoint(
+//     array $graph, 
+//     int $source,
+//     array $visited,
+//     array $disc, 
+//     array $low, 
+//     array $parent,
+//     array $articulationPoints,
+//     int $discoveryTime
+// ) {
+//     list(
+//         $visited,
+//         $disc,
+//         $low,
+//         $parent,
+//         $articulationPoints
+//     ) = findArticulationPointAction(
+//         $graph, 
+//         $source, 
+//         $visited,
+//         $disc,
+//         $low,
+//         $parent,
+//         $articulationPoints,
+//         $discoveryTime
+//     );
+
+//     return $articulationPoints;
+// }
+
+// function findArticulationPointAction(
+//     array $graph, 
+//     int $source,
+//     array $visited,
+//     array $disc, 
+//     array $low, 
+//     array $parent,
+//     array $articulationPoints,
+//     int $discoveryTime
+// ) {
+    
+//     $visited[$source] = true;
+    
+//     $disc[$source] = $low[$source] = ++$discoveryTime;
+
+//     $children = 0;
+//     foreach ($graph[$source] as $key => $v) {
+//         if (!isset($visited[$v])) {
+//             $children++;
+//             $parent[$v] = $source;
+//             list(
+//                 $visited,
+//                 $disc,
+//                 $low,
+//                 $parent,
+//                 $articulationPoints
+//             ) = findArticulationPoint(
+//                 $graph, 
+//                 $v, 
+//                 $visited,
+//                 $disc,
+//                 $low,
+//                 $parent,
+//                 $articulationPoints,
+//                 $discoveryTime
+//             );
+
+//             $low[$source] = min( $low[$source], $low[$v] );
+
+//             if (!isset($parent[$source]) && $children > 1) {
+//                 $articulationPoints[$source] = $source;
+//             }
+
+//             if (isset($parent[$source]) && $low[$v] >= $disc[$source]) {
+//                 $articulationPoints[$source] = $source;
+//             }
+//         } elseif($v !== $parent[$source]) {
+//             $low[$source] = min($low[$source], $disc[$v]);
+//         }
+//     }
+
+//     return [
+//         $visited,
+//         $disc,
+//         $low,
+//         $parent,
+//         $articulationPoints
+//     ];
+// }
+
+// print_r(findArticulationPoint(
+//     [
+//         1 => [2, 4],
+//         2 => [1, 3],
+//         3 => [2, 4, 5, 6],
+//         4 => [1, 3],
+//         5 => [3, 6],
+//         6 => [3, 5]
+//     ], 1, [], [], [], [], [], 0
+// ));
 
 // print_r(findArticulationPoint(
 //     [

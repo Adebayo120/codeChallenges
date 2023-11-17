@@ -24,21 +24,18 @@ require_once 'linkedList.php';
  */
 function circular ( LinkedList $list )
 {
-    $slow = $list->getFirst();
+    if (!$list->getFirst()) 
+            return true; 
+  
+        // Next of head 
+    $node = $list->getFirst()->next;
+  
+    // This loop would stop in both cases (1) If 
+    // Circular (2) Not circular 
+    while ($node != null && $node != $list->getFirst()) 
+        $node = $node->next; 
 
-    $fast = $list->getFirst();
-
-    while ( $fast && $fast->next ) 
-    {
-        $slow = $slow->next;
-
-        $fast = $fast->next->next;
-
-        if ( $fast === $slow )
-        {
-            return true;
-        }
-    }
-
-    return false;
+    // If loop stopped because of circular 
+    // condition 
+    return $node === $list->getFirst(); 
 }

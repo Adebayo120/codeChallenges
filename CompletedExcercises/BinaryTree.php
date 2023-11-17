@@ -42,17 +42,17 @@ function depthFirstValues(?Node $node)
     $valuesIinDepthOrder = [];
     
     while (count($stack)) {
-        $current = array_pop($stack);
+      $current = array_pop($stack);
 
-        $valuesIinDepthOrder[] = $current;
+      $valuesIinDepthOrder[] = $current;
 
-        if ($left = $current->left ) {
-            $stack[] = $left;
-        }
+      if ($left = $current->left ) {
+          $stack[] = $left;
+      }
 
-        if ($right = $current->right ) {
-            $stack[] = $right;
-        }
+      if ($right = $current->right ) {
+          $stack[] = $right;
+      }
     }
     
     return $valuesIinDepthOrder;

@@ -104,7 +104,7 @@ class DoublyLinkedList
             if (!$node->next) {
                 return $node;
             }
-            $node = $this->next;
+            $node = $node->next;
         }
         return $node;
     }
@@ -156,15 +156,15 @@ class DoublyLinkedList
             return;
         }
 
-        $node = $this->head->next;
+        $lastNode = $this->head->next;
 
-        while ($node) {
-            $node = $node->next;
+        while ($lastNode->next) {
+            $lastNode = $lastNode->next;
         }
 
-        $node->prev->next = null;
+        $lastNode->prev->next = null;
 
-        unset($node);
+        unset($lastNode);
     }
 
     /**

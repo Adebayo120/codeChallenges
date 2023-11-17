@@ -3,7 +3,9 @@
 // Binary search follow divide and conquer rule whereby
 // for every search we divide the list to reduce the number of traversal
 // NOTE: Binary search only works on sorted list
-
+// I have not tested but the implementation in here seems to be wrong
+// you can just go through it to understand how you can use dive and concur to search for an element in a
+// sorted array 
 
 function iterativeImplementationOfBS(array $arr, int $high, int $needle): int
 {

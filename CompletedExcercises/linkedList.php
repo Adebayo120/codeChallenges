@@ -4,7 +4,6 @@ require_once 'Stack.php';
 
 class Node
 {
-
     /**
      * $data
      *
@@ -30,7 +29,7 @@ class Node
 class LinkedList
 {
 
-    public ?Node $head;
+    private ?Node $head;
 
     public function __construct()
     {
@@ -270,6 +269,7 @@ class LinkedList
 
         $parentNode = $this->head;
 
+        // This is prone to error what if parentNide is already while looping
         for ($i = 0; $i < $index - 2; $i++) {
             $parentNode = $parentNode->next;
         }

@@ -1,5 +1,7 @@
 <?php
 
+// This implementation is redundant, it works but can be written in a much more neater way
+// using DSU implementation on each edge
 class DisjointSet
 {
     private array $vertices = [];
@@ -47,7 +49,7 @@ class DisjointSet
         $child = $secondVertex;
         if ($secondVertex < $firstVertex) {
             $parent = $secondVertex;
-            $child = $secondVertex;
+            $child = $firstVertex;
         }
 
         $this->vertices[$parent] = $this->vertices[$firstVertex] + $this->vertices[$secondVertex];

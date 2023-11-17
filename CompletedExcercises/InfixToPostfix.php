@@ -63,11 +63,11 @@ function isClosingParenthese(string $char): bool
     }
 }
 
-function hasHigherPrecedence(string $stackoperator, string $operator): bool
+function hasHigherPrecedence(string $stackOperator, string $operator): bool
 {
     $arithmeticOperatorsArrangedInOrderOfPrecedence = arithmeticOperatorsArrangedInOrderOfPrecedence();
 
-    return $arithmeticOperatorsArrangedInOrderOfPrecedence[$stackoperator] <= $arithmeticOperatorsArrangedInOrderOfPrecedence[$operator];
+    return $arithmeticOperatorsArrangedInOrderOfPrecedence[$stackOperator] <= $arithmeticOperatorsArrangedInOrderOfPrecedence[$operator];
 }
 
 function arithmeticOperatorsArrangedInOrderOfPrecedence(): array

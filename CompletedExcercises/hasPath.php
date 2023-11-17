@@ -5,16 +5,6 @@
 // The function should return a boolean indicating whether or not there exists directed
 // path between the source and destination nodes
 
-function hasPath($graph, $src, $dst): bool
-{
-  foreach ($graph[$src] as $node) {
-    if ($node == $dst) {
-      return true;
-    }
-  }
-  return false;
-}
-
 function hasPathDepthTraversalRecursive($graph, $src, $dst): bool
 {
   if ($src == $dst) {
@@ -26,6 +16,25 @@ function hasPathDepthTraversalRecursive($graph, $src, $dst): bool
       return true;
     }
   }
+  return false;
+}
+
+function hasPathDepthTraversalUsingStack($graph, $src, $dst): bool
+{
+  $stack = [$src];
+
+  while(count($stack)) {
+    $current = array_pop($stack);
+
+    if ($current === $dst) {
+      return true;
+    }
+
+    foreach ($graph[$current] as $key => $neighbor) {
+      array_push($stack, $neighbor);
+    }
+  }
+
   return false;
 }
 

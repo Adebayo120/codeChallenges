@@ -1,6 +1,12 @@
 <?php
 
 // Time complexity = 0(n^2)
+// Dijkstra algorithm might and might not work when we have negative edges between vertices
+// Rules of Dijkstra algorithm
+// 1) Do not relax an already selected vertex
+// 2) if a vertex has direct edge to the startPoint edge do not relax it 
+// 3) 
+
 function dijkstraAlgorithmShortestPathToOtherVertices(array $matrix, int $startPoint)
 {
   $result = $matrix[$startPoint];
@@ -10,14 +16,19 @@ function dijkstraAlgorithmShortestPathToOtherVertices(array $matrix, int $startP
     if ($vertex < 0 ) {
       return $result;
     }
+    // Relax all relaxable edges to vertex ::: relaxing typically mean finding if 
+    // moving from the current vertex to its related edges is much for shorter or not
     $relations = $matrix[$vertex];
     foreach ($relations as $relationVertex => $relationCost) {
+      // Check if we can relax edge
       if (!$relationCost || 
           $relationVertex == $startPoint || 
           !isset($arr[$relationVertex])) {
         continue;
       }
+
       $newVertexCost = $result[$vertex] + $relationCost;
+      // Check if we need to relax edge
       if (!$result[$relationVertex] || $newVertexCost < $result[$relationVertex]) {
         $result[$relationVertex] = $newVertexCost;
         $arr[$relationVertex] = $newVertexCost;

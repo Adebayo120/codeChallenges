@@ -27,6 +27,8 @@ class Heap
   public function setHeap(array $arr)
   {
     $this->heap = $arr;
+
+    $this->createHeap(count($arr));
   }
 
   public function insert(int $needle)

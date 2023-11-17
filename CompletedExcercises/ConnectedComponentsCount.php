@@ -33,3 +33,22 @@ function explore($graph, $node, $visited): bool
 
   return true;
 }
+
+[
+  0 => [1, 2, 3],
+  1 => [0, 2],
+  2 => [0, 1],
+  3 => [0, 4],
+  4 => [3]
+];
+
+// Simple self explanatory depth wise traversal of a graph
+// foreach ($graph as $vertex => $adjacentVertices) {
+//   adjacentVerticesTraversal($graph, $adjacentVertices);
+// }
+
+// function adjacentVerticesTraversal($graph, $adjacentVertices) {
+//   foreach ($adjacentVertices as $key => $vertex) {
+//     adjacentVerticesTraversal($graph, $graph[$vertex]);
+//   }
+// }

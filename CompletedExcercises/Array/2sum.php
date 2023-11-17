@@ -1,6 +1,6 @@
 <?php
 
-// Given an array of size N and an integer 'target'. FInd the indices(i,j) of 
+// Given an array of size N and an integer 'target'. Find the indices(i,j) of 
 // two numbers such that their sum is equal to target. (i != j) you can assume that
 // there will be exactly one solution
 //
@@ -13,6 +13,10 @@
 
 // Time Complexity = 0(n);
 // Space Complexity = 0(n);
+
+// The basic idea in the functionality is to make the array an associative array 
+// with value as index and the index as value, then you just need to subject target from the present 
+// array value and check if its existence in you hashMap/Dictionary
 function twoSum(array $arr, int $target): string
 {
     $hashMap = [];

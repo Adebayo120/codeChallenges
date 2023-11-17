@@ -55,7 +55,6 @@ class Solution {
       array_pop($this->stack);
     }
   }
-
 }
 
 $solution = new Solution();
