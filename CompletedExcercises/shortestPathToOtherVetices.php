@@ -23,6 +23,7 @@ function dijkstraAlgorithmShortestPathToOtherVertices(array $matrix, int $startP
       // Check if we can relax edge
       if (!$relationCost || 
           $relationVertex == $startPoint || 
+          // is the relationVertex one of the already relaxed vertex
           !isset($arr[$relationVertex])) {
         continue;
       }
@@ -36,6 +37,7 @@ function dijkstraAlgorithmShortestPathToOtherVertices(array $matrix, int $startP
     }
     unset($arr[$vertex]);  
   }
+
   return $result;
 }
 

@@ -67,7 +67,7 @@ class Tree {
      * @param [type] $fn
      * @return void
      */
-    public function traverseBF ( $fn )
+    public function traverseBF ( Closure $fn )
     {
         $arr = [ $this->root ];
 

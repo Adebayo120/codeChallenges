@@ -37,23 +37,34 @@
 
 function isPalindromePossible($str1, $str2) {
     $concatenated = $str1 . $str2;
-    $count = array();
+    $arr = array();
     $n = strlen($concatenated);
+    // I feel this is a better solution to checking if the concatenated string is a palindrome or not
     for ($i = 0; $i < $n; $i++) {
-        if (!isset($count[$concatenated[$i]])) {
-            $count[$concatenated[$i]] = 0;
-        }
-        $count[$concatenated[$i]]++;
-    }
-
-    $oddCount = 0;
-    foreach ($count as $value) {
-        if ($value % 2 != 0) {
-            $oddCount++;
+        if (!isset($arr[$concatenated[$i]])) {
+            $arr[$concatenated[$i]] = true;
+        } else {
+            unset($arr[$concatenated[$i]]);
         }
     }
+    return count($arr) <= 1;
 
-    return $oddCount <= 1;
+    // This algorithm is doing more than necessary
+    // for ($i = 0; $i < $n; $i++) {
+    //     if (!isset($arr[$concatenated[$i]])) {
+    //         $arr[$concatenated[$i]] = 0;
+    //     }
+    //     $arr[$concatenated[$i]]++;
+    // }
+
+    // $oddCount = 0;
+    // foreach ($arr as $value) {
+    //     if ($value % 2 != 0) {
+    //         $oddCount++;
+    //     }
+    // }
+
+    // return $oddCount <= 1;
 }
 
 function countPalindromePairs($arr, $N) {
@@ -76,10 +87,6 @@ echo countPalindromePairs($input1, $input2) . "\n"; // Outputs: 1
 $input1 = array('aab', 'abc', 'bbb', 'cc');
 $input2 = 4;
 echo countPalindromePairs($input1, $input2) . "\n"; // Outputs: 3
-
-$a = array();
-if ($a[1]) null;
-echo count($a), "\n";
 
 // Fanny's Occurrences
 // Fanny is given a string along with the string which contains single character ×. She s has to remove the character > from the given string. Help her write a function to remove all occurrences of x character from the given string.

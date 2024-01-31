@@ -63,11 +63,9 @@ function fib ( int $n, $cached = [] )
         return $cached[ $n ];
     }
 
-    $result = fib( $n - 1, $cached ) + fib( $n - 2, $cached );
+    $cached[ $n ] = fib( $n - 1, $cached ) + fib( $n - 2, $cached );
 
-    $cached[ $n ] = $result;
-
-    return $result;
+    return $cached[ $n ];
 }
 
 echo fib( 4 );

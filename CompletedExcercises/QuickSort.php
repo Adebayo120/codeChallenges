@@ -6,8 +6,7 @@
 
 class QuickSort
 {
-    public function __construct(protected array $arr = [])
-    {}
+    public function __construct(protected array $arr = []) {}
     
     public function quickSort($left, $right)
     {
@@ -20,6 +19,7 @@ class QuickSort
                 $this->quickSort($index, $right);
             }
         }
+
         return $this->arr;
     }
     

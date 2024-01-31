@@ -22,11 +22,6 @@ class ArrayStack1
      */
     private $data = [];
 
-    public function __construct()
-    {
-        $this->data = [];
-    }
-
     /**
      * push
      *

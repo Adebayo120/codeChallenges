@@ -14,14 +14,11 @@ function InfixToPostfix(string $infixExpression): string
 
     foreach ($arrayOfInfixExpressionChars as $index => $char) {
         if (isOperator($char)) {
-            while (!$stack->empty() && !isOpeningParentheses($stack->peek()) && hasHigherPrecedence($stack->peek(), $char)) {
-                $postfixExpression .= $stack->pop();
-            }
             $stack->push($char);
         } elseif (isOpeningParentheses($char)) {
             $stack->push($char);
         } elseif (isClosingParenthese($char)) {
-            while (!$stack->empty() && !isOpeningParentheses($stack->peek())) {
+            while (!$stack->empty() && !isOpeningParentheses($stack->peek()->data)) {
                 $postfixExpression .= $stack->pop();
             }
             $stack->pop();

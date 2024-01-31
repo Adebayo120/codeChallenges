@@ -1,6 +1,6 @@
 <?php
 
-// A string "str" contains a list of color names that are seperated by a single space
+// A string "str" contains a list of color names that are separated by a single space
 
 // Colors in "str" are mixed up but each color has its original position at the end
 // of the color name, positions are 1-indexed.
@@ -24,7 +24,7 @@
 // "str" consists of multiple color name, spaces, and digits from 1 to 9.
 // "str" contains up to 9 colors names.
 // "str" contains at least one color name.
-// Color names in the "str" in are seperated by a single space.
+// Color names in the "str" in are separated by a single space.
 // "str" contains no leading or trailing spaces
 
 

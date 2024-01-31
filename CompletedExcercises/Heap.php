@@ -111,11 +111,10 @@ class Heap
 
   private function getMaxIndex($leftChildIndex, $rightChildIndex)
   {
-    $maxChildIndex = $leftChildIndex;
     if ($this->heap[$rightChildIndex] > $this->heap[$leftChildIndex]) {
-      $maxChildIndex = $rightChildIndex;
+      return $rightChildIndex;
     }
-    return $maxChildIndex;
+    return $leftChildIndex;
   }
 }
 

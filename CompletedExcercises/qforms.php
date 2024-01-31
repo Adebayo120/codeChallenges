@@ -10,7 +10,7 @@ class QForm {
      *
      * @var [type]
      */
-    public $frst;
+    public $first;
 
     /**
      * $second

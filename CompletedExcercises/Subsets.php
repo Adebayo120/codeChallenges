@@ -33,7 +33,7 @@ class Solution {
 
 $solution = new Solution();
 
-$output = $solution->subsets([0]);
+$output = $solution->subsets([1, 2, 3]);
 
 $new = array_map(function($array) {
   return '['. implode(',', $array). ']';

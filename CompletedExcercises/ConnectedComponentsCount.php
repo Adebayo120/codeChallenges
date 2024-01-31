@@ -13,34 +13,40 @@ function ConnectedComponentsCount($graph): int
   $visited = [];
   $count = 0;
   foreach ($graph as $node => $neighbors) {
-    if (explore($graph, $node, $visited)) {
+    if ($result = explore($graph, $node, $visited)) {
+      $visited = $result;
       $count += 1;
     }
   }
   return $count;
 }
 
-function explore($graph, $node, $visited): bool
+function explore($graph, $node, $visited)
 {
-  if ($visited[$node]) {
+  if (isset($visited[$node])) {
     return false;
   }
+
   $visited[$node] = true;
 
   foreach ($graph[$node] as $key => $neighbor) {
-    explore($graph, $neighbor, $visited);
+    if ($result = explore($graph, $neighbor, $visited)) {
+      $visited = $result;
+      break;
+    }
   }
-
-  return true;
+  return $visited;
 }
 
-[
+$a = [
   0 => [1, 2, 3],
   1 => [0, 2],
   2 => [0, 1],
   3 => [0, 4],
   4 => [3]
 ];
+
+echo ConnectedComponentsCount($a);
 
 // Simple self explanatory depth wise traversal of a graph
 // foreach ($graph as $vertex => $adjacentVertices) {

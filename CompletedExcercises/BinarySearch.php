@@ -17,9 +17,9 @@ function iterativeImplementationOfBS(array $arr, int $high, int $needle): int
     if ($midVal == $needle) {
       return $medium;
     } elseif ($midVal < $needle) {
-      $high = $medium - 1;
-    } else {
       $low = $medium + 1;
+    } else {
+      $high = $medium - 1;
     }
   }
   return -1;

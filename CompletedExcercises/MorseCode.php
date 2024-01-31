@@ -19,12 +19,17 @@
 
 class SolutionClass{
   function solution($morsecode) {
-    // Write your solution here
+    $len = strlen($morsecode) - 1;
+
+    for ($i=0; $i < $len; $i++) {
+      $result = $morsecode;
+      $result[$i] = '-';
+      $result[$i + 1] = '-';
+      echo $result;
+      echo '<br>';
+    }
   }
 }
 
 $sol = new SolutionClass();
 $output = $sol->solution("....");
-sort($output);
-
-// if(count($output) == 0)

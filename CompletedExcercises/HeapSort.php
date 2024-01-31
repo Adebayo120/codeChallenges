@@ -12,6 +12,8 @@ function heapSort(array $arr)
 
   for ($i=$lastIndex; $i >= 1; $i--) {
     $heap->delete($i);
+    print_r($heap->getHeap());
+    echo '<br>';
   }
 
   print_r($heap->getHeap());
