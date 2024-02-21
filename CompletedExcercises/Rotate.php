@@ -39,8 +39,48 @@ class Solution{
   }
 }
 
-$solution = new Solution();
+// $solution = new Solution();
 
-$output = $solution->rotates([-1,-100,3,99], 2);
+// $output = $solution->rotates([-1,-100,3,99], 2);
 
-echo '[' . implode(',', $output) . ']';
+// echo '[' . implode(',', $output) . ']';
+
+
+function rotate(&$nums, $k) {
+  $length = count($nums);
+  $k %= $length; // To handle cases where k > length of the array
+  reverseArray($nums, 0, $length - 1); // Reverse the entire array
+  reverseArray($nums, 0, $k - 1); // Reverse the first k elements
+  reverseArray($nums, $k, $length - 1); // Reverse the remaining elements
+}
+
+function reverseArray(&$nums, $start, $end) {
+  while ($start < $end) {
+      $temp = $nums[$start];
+      $nums[$start] = $nums[$end];
+      $nums[$end] = $temp;
+      $start++;
+      $end--;
+  }
+}
+
+// Example usage:
+$nums1 = [1, 2, 3, 4, 5, 6, 7];
+$k1 = 3;
+rotate($nums1, $k1);
+echo "Output: [";
+foreach ($nums1 as $num) {
+  echo "$num, ";
+}
+echo "]\n";
+
+$nums2 = [-1, -100, 3, 99];
+$k2 = 2;
+rotate($nums2, $k2);
+echo "Output: [";
+foreach ($nums2 as $num) {
+  echo "$num, ";
+}
+echo "]\n";
+
+

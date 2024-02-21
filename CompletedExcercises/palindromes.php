@@ -22,4 +22,11 @@ function palindromes ( string $str )
     return $str === $reversed;
 }
 
+function palindromes ( string $str )
+{
+    $cleanedString = preg_replace("/[^a-zA-Z0-9]/", '', strtolower($str));
+    
+    return $cleanedString === strrev($cleanedString);
+}
+
 echo palindromes( 'php' );
